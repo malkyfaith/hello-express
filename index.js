@@ -9,19 +9,27 @@ hbs.registerHelper('getCurrentYear', () =>{
   return new Date().getFullYear();
 });
 
-
 app.get('/', (req, res) => {
+  res.status(404).send({
+    error:'Page not found'
+  });
+});
+
+app.get('/home', (req, res) => {
   res.render('home.hbs', {
     title: 'Home title',
     content: 'Home Content',
   })
 });
 
-app.get('/me', (req, res) => {
-  res.send({
+app.get('/family', (req, res) => {
+  res.send([{
     name: 'Malkeet',
     address: 'Australia'
-  });
+  }, {
+    name:'Amar',
+    address: 'Mahelanwali'
+  }]);
 });
 
 app.get('/about', (req, res) => {
@@ -34,3 +42,5 @@ app.get('/about', (req, res) => {
 app.listen(port, ()=>{
   console.log(`listening @ ${port}`)
 });
+
+module.exports.app = app;
